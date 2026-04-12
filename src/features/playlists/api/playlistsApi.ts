@@ -1,25 +1,17 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import type {
   CreatePlaylistArgs,
   PlaylistData,
-  PlaylistsResponse, UpdatePlaylistArgs
+  PlaylistsResponse,
+  UpdatePlaylistArgs
 } from "@/features/playlists/api/playlistsApi.types.ts";
+import {baseApi} from "@/app/api/baseApi.ts";
 
-export const playlistsApi = createApi({
-  reducerPath: 'playlistsApi',
-  baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_URL,
-    headers: {
-      'API-KEY': import.meta.env.VITE_API_KEY,
-    },
-    prepareHeaders: headers => {
-      headers.set('Authorization', `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`)
-      return headers
-    },
-  }),
+export const playlistsApi = baseApi.injectEndpoints({
+
   endpoints: (builder) => ({
     fetchPlaylists: builder.query<PlaylistsResponse, void>({
       query: () => `playlists`,
+      providesTags: ['Playlist'],
     }),
     createPlaylist: builder.mutation<{
       data: PlaylistData
@@ -29,13 +21,15 @@ export const playlistsApi = createApi({
         method: 'post',
         body
       }),
+      invalidatesTags: ['Playlist'],
     }),
     deletePlaylist: builder.mutation<void, string>({
       query: (playlistId) => ({
         url: `playlists/${playlistId}`,
         method: 'delete',
 
-      })
+      }),
+      invalidatesTags: ['Playlist'],
     }),
     updatePlaylist: builder.mutation<void, {
       playlistId: string;
@@ -46,6 +40,7 @@ export const playlistsApi = createApi({
         method: 'put',
         body,
       }),
+      invalidatesTags: ['Playlist'],
     }),
   }),
 })
