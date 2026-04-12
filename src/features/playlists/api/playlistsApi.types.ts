@@ -55,15 +55,16 @@ export type FetchPlaylistsArgs = {
 //     attributes: Pick<PlaylistAttributes, 'title' | 'description'>
 //   }
 // }
-export type CreatePlaylistFormValues = {
+export type PlaylistFormValues = {
   title: string
   description?: string
+  tagIds?: string[]
 }
 
 
 export type CreatePlaylistArgs = {
   data: {
-    type: 'playlists'
+    type: PlaylistData['type']
     attributes: {
       title: string
       description?: string

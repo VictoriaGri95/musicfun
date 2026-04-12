@@ -1,36 +1,50 @@
 import {
   useDeletePlaylistMutation,
-  useFetchPlaylistsQuery, useUpdatePlaylistMutation
+  useFetchPlaylistsQuery
 } from "@/features/playlists/api/playlistsApi.ts";
 import s from './PlaylistsPage.module.css'
 import {
   CreatePlaylistForm
 } from "@/features/playlists/ui/PlaylistsPage/CreatePlaylistForm/CreatePlaylistForm.tsx";
+import {useForm} from "react-hook-form";
+import {useState} from "react";
+import type {
+  PlaylistData,
+  PlaylistFormValues
+} from "@/features/playlists/api/playlistsApi.types.ts";
+import {
+  PlaylistItem
+} from "@/features/playlists/ui/PlaylistsPage/PlaylistItem/PlaylistItem.tsx";
+import {
+  EditPlaylistForm
+} from "@/features/playlists/ui/PlaylistsPage/EditPlaylistForm/EditPlaylistForm.tsx";
 
 export const PlaylistsPage = () => {
+
+  const [playlistId, setPlaylistId] = useState<string | null>(null)
+  const {register, handleSubmit, reset} = useForm<PlaylistFormValues>()
+
   const {data} = useFetchPlaylistsQuery()
   const [deletePlaylist] = useDeletePlaylistMutation()
-  const [updatePlaylist] = useUpdatePlaylistMutation()
 
   const deletePlaylistHandler = (playlistId: string) => {
     if (confirm('Are you sure you want to delete the playlist?')) {
       deletePlaylist(playlistId)
     }
   }
-  const updatePlaylistHandler = (playlistId: string) => {
-    updatePlaylist({
-      playlistId,
-      body: {
-        data: {
-          type: "playlists",
-          attributes: {
-            title: "string",
-            description: "Cool playlist",
-            tagIds: [],
-          }
-        }
-      }
-    })
+
+
+  const editPlaylistHandler = (playlist: PlaylistData | null) => {
+    if (playlist) {
+      setPlaylistId(playlist.id)
+      reset({
+        title: playlist.attributes.title,
+        description: playlist.attributes.description,
+        tagIds: playlist.attributes.tags.map(t => t.id),
+      })
+    } else {
+      setPlaylistId(null)
+    }
   }
 
   return (
@@ -39,16 +53,30 @@ export const PlaylistsPage = () => {
       <CreatePlaylistForm />
       <div className={s.items}>
         {data?.data.map(playlist => {
+          const isEditing = playlistId === playlist.id
           return (
             <div
               className={s.item}
               key={playlist.id}
             >
-              <div>title: {playlist.attributes.title}</div>
-              <div>description: {playlist.attributes.description}</div>
-              <div>userName: {playlist.attributes.user.name}</div>
-              <button onClick={() => deletePlaylistHandler(playlist.id)}>Delete</button>
-              <button onClick={() => updatePlaylistHandler(playlist.id)}>update</button>
+              {isEditing ? (
+                  <EditPlaylistForm
+                    playlistId={playlistId}
+                    handleSubmit={handleSubmit}
+                    register={register}
+                    editPlaylist={editPlaylistHandler}
+                    setPlaylistId={setPlaylistId}
+                  />
+                ) :
+                (
+                  <PlaylistItem
+                    playlist={playlist}
+                    deletePlaylist={deletePlaylistHandler}
+                    editPlaylist={editPlaylistHandler}
+                  />
+                )
+              }
+
             </div>
           )
         })}

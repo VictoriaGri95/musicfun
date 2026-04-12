@@ -21,7 +21,9 @@ export const playlistsApi = createApi({
     fetchPlaylists: builder.query<PlaylistsResponse, void>({
       query: () => `playlists`,
     }),
-    createPlaylist: builder.mutation<{ data: PlaylistData }, CreatePlaylistArgs>({
+    createPlaylist: builder.mutation<{
+      data: PlaylistData
+    }, CreatePlaylistArgs>({
       query: body => ({
         url: 'playlists',
         method: 'post',
@@ -35,8 +37,11 @@ export const playlistsApi = createApi({
 
       })
     }),
-    updatePlaylist: builder.mutation<void, { playlistId: string; body: UpdatePlaylistArgs }>({
-      query: ({ playlistId, body }) => ({
+    updatePlaylist: builder.mutation<void, {
+      playlistId: string;
+      body: UpdatePlaylistArgs
+    }>({
+      query: ({playlistId, body}) => ({
         url: `playlists/${playlistId}`,
         method: 'put',
         body,
