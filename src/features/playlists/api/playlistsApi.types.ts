@@ -67,7 +67,7 @@ export type CreatePlaylistArgs = {
     type: PlaylistData['type']
     attributes: {
       title: string
-      description?: string
+      description: string
     }
   }
 }
