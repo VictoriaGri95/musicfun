@@ -57,7 +57,7 @@ export type FetchPlaylistsArgs = {
 // }
 export type PlaylistFormValues = {
   title: string
-  description?: string
+  description: string
   tagIds?: string[]
 }
 

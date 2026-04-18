@@ -18,9 +18,10 @@ export const PlaylistsPage = () => {
 
   const debounceSearch = useDebounceValue(search)
   const {data, isLoading} = useFetchPlaylistsQuery({
-    search: debounceSearch, pageNumber: currentPage,
-    pageSize,
-  })
+      search: debounceSearch, pageNumber: currentPage,
+      pageSize
+    }, {refetchOnFocus: true, refetchOnReconnect: true}
+  )
 
   const changePageSizeHandler = (size: number) => {
     setPageSize(size)
