@@ -1,6 +1,7 @@
 import {NavLink} from 'react-router'
 import s from './Header.module.css'
-import {Path} from "@/common/utils/constants.ts";
+import {Path} from "@/common/constants";
+
 
 const navItems = [
   {to: Path.Main, label: 'Main'},

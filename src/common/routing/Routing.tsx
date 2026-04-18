@@ -5,8 +5,9 @@ import {
 } from "@/features/playlists/ui/PlaylistsPage/PlaylistsPage.tsx";
 import {TracksPage} from "@/features/tracks/ui/TracksPage.tsx";
 import {ProfilePage} from "@/features/auth/ui/ProfilePage/ProfilePage.tsx";
-import {Path} from "@/common/utils/constants.ts";
+
 import {PageNotFound} from "@/common/components";
+import {Path} from "@/common/constants";
 
 
 export const Routing = () => (

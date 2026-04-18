@@ -6,7 +6,7 @@ type Props = {
   attributes: PlaylistAttributes
 }
 
-export const PlaylistDescription = ({ attributes }: Props) => {
+export const PlaylistDescription = ({attributes}: Props) => {
   return (
     <div>
       <div>title: {attributes.title}</div>

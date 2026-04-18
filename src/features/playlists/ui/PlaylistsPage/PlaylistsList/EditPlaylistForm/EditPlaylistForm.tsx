@@ -58,7 +58,7 @@ export const EditPlaylistForm = ({
         type={'button'}
         onClick={() => editPlaylist(null)}
       >
-        cancel
+        Cancel
       </button>
     </form>
   );

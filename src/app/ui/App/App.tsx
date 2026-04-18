@@ -1,4 +1,4 @@
-import {Routing} from "@/common/components/routing";
+import {Routing} from "@/common/routing";
 import {Header} from "@/common/components";
 import s from './App.module.css'
 import {ToastContainer} from "react-toastify";
