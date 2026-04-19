@@ -5,10 +5,12 @@ import {
 } from "@/features/playlists/ui/CreatePlaylistForm/CreatePlaylistForm.tsx";
 import {type ChangeEvent, useState} from "react";
 import {useDebounceValue} from "@/common/hooks";
-import {Pagination} from "@/common/components/Pagination/Pagination.tsx";
+
 import {
   PlaylistsList
 } from "@/features/playlists/ui/PlaylistsList/PlaylistsList.tsx";
+import { Pagination} from "@/common/components";
+
 
 export const PlaylistsPage = () => {
   const [search, setSearch] = useState('')
@@ -33,10 +35,12 @@ export const PlaylistsPage = () => {
     setCurrentPage(1)
   }
 
+  if (isLoading) return <h1>Skeleton loader...</h1>
+
   return (
     <div className={s.container}>
       <h1>Playlists page</h1>
-      <CreatePlaylistForm />
+      <CreatePlaylistForm setCurrentPage={setCurrentPage}/>
       <input
         type="search"
         placeholder={'Search playlist by title'}

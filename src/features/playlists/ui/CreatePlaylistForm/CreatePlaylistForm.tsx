@@ -6,8 +6,10 @@ import type {
 } from "@/features/playlists/api/playlistsApi.types.ts";
 import {type SubmitHandler, useForm} from "react-hook-form";
 
-
-export const CreatePlaylistForm = () => {
+type Props = {
+  setCurrentPage: (page: number) => void;
+}
+export const CreatePlaylistForm = ({setCurrentPage}: Props ) => {
   const {register, handleSubmit, reset} =
     useForm<PlaylistFormValues>()
 
@@ -27,6 +29,7 @@ export const CreatePlaylistForm = () => {
     try {
       await createPlaylist(payload).unwrap()
       reset()
+      setCurrentPage(1)
     } catch (error) {
       console.error("Create playlist error:", error)
     }
