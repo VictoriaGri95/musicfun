@@ -1,11 +1,10 @@
-import type {
-  CreatePlaylistArgs, FetchPlaylistsArgs,
-  PlaylistData,
-  PlaylistsResponse,
-  UpdatePlaylistArgs
-} from "@/features/playlists/api/playlistsApi.types.ts";
 import {baseApi} from "@/app/api/baseApi.ts";
 import type {Images} from "@/common/types";
+import type {
+  CreatePlaylistArgs,
+  FetchPlaylistsArgs, PlaylistData,
+  PlaylistsResponse, UpdatePlaylistArgs
+} from "@/features/playlists/api/playlistsApi.types.ts";
 
 export const playlistsApi = baseApi.injectEndpoints({
 
@@ -32,6 +31,8 @@ export const playlistsApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['Playlist'],
     }),
+
+
     updatePlaylist: builder.mutation<void, {
       playlistId: string;
       body: UpdatePlaylistArgs
@@ -39,10 +40,50 @@ export const playlistsApi = baseApi.injectEndpoints({
       query: ({playlistId, body}) => ({
         url: `playlists/${playlistId}`,
         method: 'put',
-        body,
+        body
       }),
+      async onQueryStarted({playlistId, body}, {
+        dispatch,
+        queryFulfilled,
+        getState
+      }) {
+        const args = playlistsApi.util.selectCachedArgsForQuery(getState(), 'fetchPlaylists')
+
+        const patchResults: any[] = []
+
+        args.forEach(arg => {
+          patchResults.push(
+            dispatch(
+              playlistsApi.util.updateQueryData(
+                'fetchPlaylists',
+                arg,
+                state => {
+                  if (!state.data) return
+
+                  const playlist = state.data.find(p => p.id === playlistId)
+
+                  if (playlist) {
+                    playlist.attributes = {
+                      ...playlist.attributes,
+                      ...body.data.attributes
+                    }
+                  }
+                }
+              )
+            )
+          )
+        })
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResults.forEach(p => p.undo())
+        }
+      },
       invalidatesTags: ['Playlist'],
     }),
+
+
     uploadPlaylistCover: builder.mutation<Images, {
       playlistId: string;
       file: File

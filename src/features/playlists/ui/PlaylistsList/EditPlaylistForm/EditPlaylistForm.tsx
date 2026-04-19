@@ -16,7 +16,7 @@ type Props = {
   register: UseFormRegister<PlaylistFormValues>
   handleSubmit: UseFormHandleSubmit<PlaylistFormValues>
   editPlaylist: (playlist: null) => void
-  setPlaylistId: (playlistId: null) => void
+  setPlaylistId: (playlistId: string | null) => void
 }
 
 export const EditPlaylistForm = ({
@@ -30,18 +30,18 @@ export const EditPlaylistForm = ({
   const [updatePlaylist] = useUpdatePlaylistMutation()
 
   const onSubmit: SubmitHandler<PlaylistFormValues> = (data) => {
-    if (playlistId) {
-      updatePlaylist({
-        playlistId,
-        body: {
-          data: {
-            type: "playlists",
-            attributes: data
-          }
+    if (!playlistId) return
+
+    updatePlaylist({
+      playlistId,
+      body: {
+        data: {
+          type: "playlists",
+          attributes: data
         }
-      })
-      setPlaylistId(null)
-    }
+      }
+    })
+    setPlaylistId(null)
   }
 
   return (
