@@ -1,10 +1,10 @@
 import s from "./PlaylistsList.module.css";
 import {
   EditPlaylistForm
-} from "@/features/playlists/ui/PlaylistsPage/PlaylistsList/EditPlaylistForm/EditPlaylistForm.tsx";
+} from "@/features/playlists/ui/PlaylistsList/EditPlaylistForm/EditPlaylistForm.tsx";
 import {
   PlaylistItem
-} from "@/features/playlists/ui/PlaylistsPage/PlaylistsList/PlaylistItem/PlaylistItem.tsx";
+} from "@/features/playlists/ui/PlaylistsList/PlaylistItem/PlaylistItem.tsx";
 import type {
   PlaylistData, PlaylistFormValues
 } from "@/features/playlists/api/playlistsApi.types.ts";

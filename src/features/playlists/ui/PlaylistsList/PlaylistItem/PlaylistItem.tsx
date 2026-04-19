@@ -3,10 +3,10 @@ import type {
 } from "@/features/playlists/api/playlistsApi.types.ts";
 import {
   PlaylistCover
-} from "@/features/playlists/ui/PlaylistsPage/PlaylistsList/PlaylistItem/PlaylistCover/PlaylistCover.tsx";
+} from "@/features/playlists/ui/PlaylistsList/PlaylistItem/PlaylistCover/PlaylistCover.tsx";
 import {
   PlaylistDescription
-} from "@/features/playlists/ui/PlaylistsPage/PlaylistsList/PlaylistItem/PlaylistDescription/PlaylistDescription.tsx";
+} from "@/features/playlists/ui/PlaylistsList/PlaylistItem/PlaylistDescription/PlaylistDescription.tsx";
 
 type Props = {
   playlist: PlaylistData

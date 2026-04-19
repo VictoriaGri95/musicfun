@@ -2,7 +2,7 @@ import {MainPage} from "@/app/ui/MainPage/MainPage.tsx";
 import {Route, Routes} from "react-router";
 import {
   PlaylistsPage
-} from "@/features/playlists/ui/PlaylistsPage/PlaylistsPage.tsx";
+} from "@/features/playlists/ui/PlaylistsPage.tsx";
 import {TracksPage} from "@/features/tracks/ui/TracksPage.tsx";
 import {ProfilePage} from "@/features/auth/ui/ProfilePage/ProfilePage.tsx";
 
