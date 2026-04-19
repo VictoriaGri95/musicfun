@@ -12,13 +12,13 @@ export const tracksApi = baseApi.injectEndpoints({
           return lastPage.meta.nextCursor || undefined
         },
       },
-      query: ({ pageParam }) => {
+      query: ({pageParam}) => {
         return {
           url: 'playlists/tracks',
-          params: { cursor: pageParam, pageSize: 6, paginationType: 'cursor' }
+          params: {cursor: pageParam, pageSize: 6, paginationType: 'cursor'}
         }
       },
     }),
   }),
 })
-export const { useFetchTracksInfiniteQuery } = tracksApi
+export const {useFetchTracksInfiniteQuery} = tracksApi

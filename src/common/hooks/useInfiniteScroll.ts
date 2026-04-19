@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import {useCallback, useEffect, useRef} from 'react'
 
 type Props = {
   hasNextPage: boolean
@@ -54,5 +54,5 @@ export const useInfiniteScroll = ({
     }
   }, [loadMoreHandler, rootMargin, threshold])
 
-  return { observerRef }
+  return {observerRef}
 }

@@ -1,5 +1,5 @@
-import type { CurrentUserReaction } from '@/common/enums'
-import type { Images, User } from '@/common/types'
+import type {CurrentUserReaction} from '@/common/enums'
+import type {Images, User} from '@/common/types'
 
 export type FetchTracksResponse = {
   data: TrackData[]
@@ -39,7 +39,7 @@ export type TrackAttributes = {
   user: User
   isPublished: boolean
   publishedAt: string
-  likesCount: number  
+  likesCount: number
   duration: number
 }
 

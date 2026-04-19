@@ -6,21 +6,27 @@ import {
 } from "@/features/tracks/ui/LoadingTrigger/LoadingTrigger.tsx";
 
 export const TracksPage = () => {
-  const { data, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage } =
+  const {data, isFetching, isFetchingNextPage, fetchNextPage, hasNextPage} =
     useFetchTracksInfiniteQuery()
   const pages = data?.pages.flatMap(page => page.data) || []
 
-  const {observerRef} = useInfiniteScroll({ hasNextPage, fetchNextPage, isFetching} )
-
+  const {observerRef} = useInfiniteScroll({
+    hasNextPage,
+    fetchNextPage,
+    isFetching
+  })
 
 
   return (
     <div>
       <h1>Tracks page</h1>
-      <TracksList tracks={pages}/>
+      <TracksList tracks={pages} />
 
       {hasNextPage && (
-        <LoadingTrigger isFetchingNextPage={isFetchingNextPage} observerRef={observerRef}/>
+        <LoadingTrigger
+          isFetchingNextPage={isFetchingNextPage}
+          observerRef={observerRef}
+        />
       )}
 
       {!hasNextPage && pages.length > 0 && <p>Nothing more to load</p>}

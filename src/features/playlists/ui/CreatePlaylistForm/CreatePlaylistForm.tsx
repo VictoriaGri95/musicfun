@@ -9,7 +9,7 @@ import {type SubmitHandler, useForm} from "react-hook-form";
 type Props = {
   setCurrentPage: (page: number) => void;
 }
-export const CreatePlaylistForm = ({setCurrentPage}: Props ) => {
+export const CreatePlaylistForm = ({setCurrentPage}: Props) => {
   const {register, handleSubmit, reset} =
     useForm<PlaylistFormValues>()
 

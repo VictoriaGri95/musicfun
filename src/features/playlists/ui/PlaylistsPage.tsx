@@ -9,7 +9,7 @@ import {useDebounceValue} from "@/common/hooks";
 import {
   PlaylistsList
 } from "@/features/playlists/ui/PlaylistsList/PlaylistsList.tsx";
-import { Pagination} from "@/common/components";
+import {Pagination} from "@/common/components";
 
 
 export const PlaylistsPage = () => {
@@ -25,6 +25,22 @@ export const PlaylistsPage = () => {
     }, {refetchOnFocus: true, refetchOnReconnect: true}
   )
 
+  //
+  // useEffect(() => {
+  //   if (!error) return
+  //   if ('status' in error) {
+  //     // FetchBaseQueryError
+  //     const errMsg = 'error' in error ? error.error : (error.data as { error: string }).error ||
+  //       (error.data as { message: string }).message ||
+  //       'Some error occurred'
+  //     toast(errMsg, { type: 'error', theme: 'colored' })
+  //   } else {
+  //     // SerializedError
+  //     toast(error.message || 'Some error occurred', { type: 'error', theme: 'colored' })
+  //   }
+  // }, [error])
+
+
   const changePageSizeHandler = (size: number) => {
     setPageSize(size)
     setCurrentPage(1)
@@ -37,10 +53,11 @@ export const PlaylistsPage = () => {
 
   if (isLoading) return <h1>Skeleton loader...</h1>
 
+
   return (
     <div className={s.container}>
       <h1>Playlists page</h1>
-      <CreatePlaylistForm setCurrentPage={setCurrentPage}/>
+      <CreatePlaylistForm setCurrentPage={setCurrentPage} />
       <input
         type="search"
         placeholder={'Search playlist by title'}

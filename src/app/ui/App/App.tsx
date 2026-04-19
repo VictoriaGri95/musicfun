@@ -10,7 +10,7 @@ export const App = () => {
   return (
     <>
       <Header />
-      {isGlobalLoading ?? <LinearProgress/> }
+      {isGlobalLoading && <LinearProgress />}
       <div className={s.layout}>
         <Routing />
       </div>

@@ -5,7 +5,7 @@ type Props = {
   isFetchingNextPage: boolean
 }
 
-export const LoadingTrigger = ({ observerRef, isFetchingNextPage }: Props) => {
+export const LoadingTrigger = ({observerRef, isFetchingNextPage}: Props) => {
   return (
     // Этот элемент отслеживается IntersectionObserver
     <div ref={observerRef}>
@@ -15,7 +15,7 @@ export const LoadingTrigger = ({ observerRef, isFetchingNextPage }: Props) => {
       {isFetchingNextPage ? (
         <div>Loading more tracks...</div>
       ) : (
-        <div style={{ height: '20px' }} />
+        <div style={{height: '20px'}} />
       )}
     </div>
   );

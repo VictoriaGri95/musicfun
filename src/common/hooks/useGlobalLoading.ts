@@ -1,5 +1,5 @@
-import type { RootState } from '@/app/model/store.ts'
-import { useSelector } from 'react-redux'
+import type {RootState} from '@/app/model/store.ts'
+import {useSelector} from 'react-redux'
 import {playlistsApi} from "@/features/playlists/api/playlistsApi.ts";
 import {tracksApi} from "@/features/tracks/api/tracksApi.ts";
 
