@@ -8,10 +8,17 @@ import {ProfilePage} from "@/features/auth/ui/ProfilePage/ProfilePage.tsx";
 
 import {PageNotFound} from "@/common/components";
 import {Path} from "@/common/constants";
+import {
+  OAuthCallback
+} from "@/features/auth/ui/OAuthCallback/OAuthCallback.tsx";
 
 
 export const Routing = () => (
   <Routes>
+    <Route
+      path={Path.OAuthRedirect}
+      element={<OAuthCallback />}
+    />
     <Route
       path={Path.Main}
       element={<MainPage />}

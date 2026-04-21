@@ -49,14 +49,18 @@ export const playlistsApi = baseApi.injectEndpoints({
       }) {
         const args = playlistsApi.util.selectCachedArgsForQuery(getState(), 'fetchPlaylists')
 
-        const patchResults: any[] = []
+        const patchCollections: any[] = []
 
         args.forEach(arg => {
-          patchResults.push(
+          patchCollections.push(
             dispatch(
               playlistsApi.util.updateQueryData(
                 'fetchPlaylists',
-                arg,
+                {
+                  pageNumber: arg.pageNumber,
+                  pageSize: arg.pageSize,
+                  search: arg.search,
+                },
                 state => {
                   if (!state.data) return
 
@@ -77,7 +81,7 @@ export const playlistsApi = baseApi.injectEndpoints({
         try {
           await queryFulfilled
         } catch {
-          patchResults.forEach(p => p.undo())
+          patchCollections.forEach(p => p.undo())
         }
       },
       invalidatesTags: ['Playlist'],
