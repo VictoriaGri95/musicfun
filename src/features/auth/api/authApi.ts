@@ -16,7 +16,7 @@ export const authApi = baseApi.injectEndpoints({
       query: payload => ({
         url: `auth/login`,
         method: 'post',
-        body: {...payload, accessTokenTTL: '3m'},
+        body: {...payload, accessTokenTTL: '15m'},
       }),
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled
@@ -28,6 +28,7 @@ export const authApi = baseApi.injectEndpoints({
     }),
     logout: builder.mutation<void, void>({
       query: () => {
+
         const refreshToken = localStorage.getItem(AUTH_KEYS.refreshToken)
         return { url: 'auth/logout', method: 'post', body: { refreshToken } }
       },
