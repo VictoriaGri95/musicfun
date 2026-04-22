@@ -1,9 +1,13 @@
-import { baseApi } from '@/app/api/baseApi.ts'
-import { baseQuery } from '@/app/api/baseQuery.ts'
-import { AUTH_KEYS } from '@/common/constants'
-import { handleErrors, isTokens } from '@/common/utils'
-import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
-import { Mutex } from 'async-mutex'
+import {baseApi} from '@/app/api/baseApi.ts'
+import {baseQuery} from '@/app/api/baseQuery.ts'
+import {AUTH_KEYS} from '@/common/constants'
+import {handleErrors, isTokens} from '@/common/utils'
+import type {
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError
+} from '@reduxjs/toolkit/query/react'
+import {Mutex} from 'async-mutex'
 
 // Создаём новый мьютекс для управления параллельными запросами на обновление токена
 const mutex = new Mutex()
@@ -29,7 +33,7 @@ export const baseQueryWithReauth: BaseQueryFn<
         const refreshToken = localStorage.getItem(AUTH_KEYS.refreshToken)
 
         const refreshResult = await baseQuery(
-          { url: '/auth/refresh', method: 'post', body: { refreshToken } },
+          {url: '/auth/refresh', method: 'post', body: {refreshToken}},
           api,
           extraOptions
         )
