@@ -1,3 +1,5 @@
+export {withZodCatch} from "./withZodCatch.ts";
+
 export {isTokens} from "./isTokens.ts";
 
 export {successToast} from "./succesToast.ts";

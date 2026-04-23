@@ -1,10 +1,10 @@
 import {z} from "zod";
 import {
-  currentUserReactionSchema,
   imagesSchema,
   tagSchema,
   userSchema
 } from "@/common/schemas/schemas.ts";
+import {currentUserReactionSchema} from "@/common/types";
 
 // Схема для создания плейлиста
 export const createPlaylistSchema = z.object({
@@ -56,7 +56,7 @@ export const playlistAttributesSchema = z.object({
   updatedAt: z.iso.datetime(),
   order: z.number().int(),
   dislikesCount: z.number().int().nonnegative(),
-  likesCount:z.number().int().nonnegative(),
+  likesCount: z.number().int().nonnegative(),
   tags: z.array(tagSchema),
   images: imagesSchema,
   user: userSchema,
@@ -74,4 +74,8 @@ export const playlistDataSchema = z.object({
 export const playlistsResponseSchema = z.object({
   data: z.array(playlistDataSchema),
   meta: playlistMetaSchema,
+})
+
+export const playlistCreateResponseSchema = z.object({
+  data: playlistDataSchema,
 })

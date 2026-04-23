@@ -1,21 +1,14 @@
-export type Tag = {
-  id: string
-  name: string
-}
+import {z} from "zod";
+import {
+  coverSchema,
+  imagesSchema,
+  tagSchema,
+  userSchema
+} from "@/common/schemas";
+import {CurrentUserReaction} from "@/common/enums";
 
-export type User = {
-  id: string
-  name: string
-}
-
-export type Images = {
-  main: Cover[]
-}
-
-export type Cover = {
-  type: 'original' | 'medium' | 'thumbnail'
-  width: number
-  height: number
-  fileSize: number
-  url: string
-}
+export type Tag = z.infer<typeof tagSchema>
+export type User = z.infer<typeof userSchema>
+export type Images = z.infer<typeof imagesSchema>
+export type Cover = z.infer<typeof coverSchema>
+export const currentUserReactionSchema = z.enum(CurrentUserReaction)

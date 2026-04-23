@@ -1,5 +1,4 @@
 import {z} from "zod";
-import {CurrentUserReaction} from "@/common/enums";
 
 export const tagSchema = z.object({
   id: z.string(),
@@ -23,11 +22,7 @@ export const imagesSchema = z.object({
   main: z.array(coverSchema),
 })
 
-export const currentUserReactionSchema = z.union([
-  z.literal(CurrentUserReaction.Like),
-  z.literal(CurrentUserReaction.None),
-  z.literal(CurrentUserReaction.Dislike),
-])
+
 
 
 

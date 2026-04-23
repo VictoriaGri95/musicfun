@@ -1,26 +1,31 @@
 import {baseApi} from "@/app/api/baseApi.ts";
-import type {Images} from "@/common/types";
 import type {
   CreatePlaylistArgs,
-  FetchPlaylistsArgs, PlaylistData,
-  PlaylistsResponse, UpdatePlaylistArgs
+  FetchPlaylistsArgs,
+  UpdatePlaylistArgs
 } from "@/features/playlists/api/playlistsApi.types.ts";
+import {
+  playlistCreateResponseSchema,
+  playlistsResponseSchema
+} from "@/features/playlists/model/playlists.schemas.ts";
+import {withZodCatch} from "@/common/utils";
+import {imagesSchema} from "@/common/schemas";
 
 export const playlistsApi = baseApi.injectEndpoints({
 
   endpoints: (builder) => ({
-    fetchPlaylists: builder.query<PlaylistsResponse, FetchPlaylistsArgs>({
-      query: params => ({url: `playlists`, params}),
+    fetchPlaylists: builder.query({
+      query: (params: FetchPlaylistsArgs) => ({url: `playlists`, params}),
+      ...withZodCatch(playlistsResponseSchema),
       providesTags: ['Playlist'],
     }),
-    createPlaylist: builder.mutation<{
-      data: PlaylistData
-    }, CreatePlaylistArgs>({
-      query: body => ({
+    createPlaylist: builder.mutation({
+      query: (body: CreatePlaylistArgs) => ({
         url: 'playlists',
         method: 'post',
         body
       }),
+      ...withZodCatch(playlistCreateResponseSchema),
       invalidatesTags: ['Playlist'],
     }),
     deletePlaylist: builder.mutation<void, string>({
@@ -88,10 +93,7 @@ export const playlistsApi = baseApi.injectEndpoints({
     }),
 
 
-    uploadPlaylistCover: builder.mutation<Images, {
-      playlistId: string;
-      file: File
-    }>({
+    uploadPlaylistCover: builder.mutation({
       query: ({playlistId, file}) => {
         const formData = new FormData()
         formData.append('file', file)
@@ -101,6 +103,8 @@ export const playlistsApi = baseApi.injectEndpoints({
           body: formData,
         }
       },
+
+      ...withZodCatch(imagesSchema),
       invalidatesTags: ['Playlist'],
     }),
     deletePlaylistCover: builder.mutation<void, { playlistId: string }>({
